@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<link type="text/css" rel="stylesheet" href="style.css"/>
+		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+		<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+		<title>Project 3::Favorite Places to Visit</title>
+	</head>
+	<body>
+		<header>
+			<nav class="nav">
+				<ul>
+					<li><a href="index.html">Home</a></li>
+					<li><a href="foodmenu.html">Food Menu</a></li>
+					<li><a href="favplace.html">Favorite Place</a></li>
+				</ul>
+			</nav>
+		</header>
+		<div class="favplace">
+		<h1>Favorite Places to Visit</h1>
+			<section>
+				<h2>Verona</h2>
+				<img src="http://www.italymagazine.com/sites/default/files/styles/624xauto/public/feature-story/leader/verona-lead.jpg?itok=DyaORcAx" 
+					alt="Verona" title="Verona">
+				<div class="center">
+					<p>Famous for the setting of Shakespeare’s Romeo and Juliet, 
+					Verona has much more to offer than its connections to 
+					the star-crossed lovers! </p>
+					<p>Sites include:</p>
+					<div class="list-center">
+						<ul>
+							<li>Piazza della Erbe</li>
+							<li>Arena of Verona</li>
+							<li>Castelvecchio</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+			
+			<section>
+				<h2>Dubai</h2>
+				<div class="center">
+					<p> Dubai is the United Arab Emirates' vacation hot spot. 
+					This city of high-rises and shopping malls 
+					has transformed itself from a desert outpost to a vacation destination <a href="http://www.visitdubai.com/en/"><strong>Learn More</strong></a></p>
+					<p>Sites include:</p>
+					<div class="list-center">
+						<ul>
+							<li>Burj Khalifa</li>
+							<li>Palm Jumeirah</li>
+							<li>Deira Clocktower</li>
+						</ul>
+					</div>
+					
+				</div>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/DGuNxamRYxk" title="Dubai-Travel Guide" allowfullscreen></iframe>
+			</section>
+			
+			<section> 
+				<h2>Great Barrier Reef-Australia</h2>
+				<iframe width="560" height="315" src="https://www.youtube.com/embed/vcgLc3llEaE"  allowfullscreen title="Great Barrier Reef-Australia"></iframe>
+				<div class="center">
+					<p>The world's largest coral reef system boasts incredible scenery, whether you view it underwater, from the air or by boat.</p>
+				</div>
+			</section>
+			
+			<div id="map-spacing">
+				<div id="map"></div>
+			</div>
+		</div>
+		<footer>
+			<p>Created by Jaina Parekh</p>
+			<address>
+			<a href="mailto:jparekh1@hawk.iit.edu">jparekh1@hawk.iit.edu</a>
+			</address>
+		</footer>
+		<script type="text/javascript">
+
+			var locations = [
+			  ['Verona, Italy', 45.4382, 10.9916, 3],
+			  ['Dubai, UAE', 25.2048, 55.2708, 2],
+			  ['Great Barrier Reef, Australia', -18.2871, 147.4859, 1],
+			  
+			];
+
+			var map = new google.maps.Map(document.getElementById('map'), {
+			  zoom: 2,
+			  center: new google.maps.LatLng(25, 55),
+			  mapTypeId: google.maps.MapTypeId.ROADMAP
+			});
+
+			var infowindow = new google.maps.InfoWindow();
+
+			var marker, i;
+
+			for (i = 0; i < locations.length; i++) { 
+			  marker = new google.maps.Marker({
+				position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+				map: map
+			  });
+
+			  google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
+				return function() {
+				  infowindow.setContent(locations[i][0]);
+				  infowindow.open(map, marker);
+				}
+			  })(marker, i));
+			  google.maps.event.addListener(marker, 'mouseout', function() {
+			  infowindow.close();
+			  });
+			 
+			  google.maps.event.addListener(marker, 'click', function() {
+				map.panTo(this.getPosition());
+				map.setZoom(9);
+				
+				});   
+			}
+	</script>
+	</body>
+</html>
